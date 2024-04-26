@@ -72,8 +72,6 @@ Vue.createApp(App).mount("#app");
 
 Ao adicionar o Vue através do CDN, o Vue é exposto como propriedades no objeto global **Vue**.
 
-Ao alterar o valor da propriedade `produto` no nosso componente Vue, o valor exibido no nosso template também é alterado.
-
-E isso acontece pois o Vue é reativo, ou seja, ele monitora as dependências do nosso componente e atualiza o template sempre que uma dependência é alterada.
+Ao alterar o valor da propriedade `produto` no nosso componente Vue, o valor exibido no nosso template também é alterado, isso acontece pois o Vue é reativo, ou seja, ele monitora as dependências do nosso componente e atualiza o template sempre que uma dependência é alterada.
 
 No nosso exemplo a dependência é a propriedade `produto`, então sempre que essa propriedade é alterada o template é atualizado.
