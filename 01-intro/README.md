@@ -20,7 +20,7 @@ Significa que você pode adicionar o Vue a um projeto existente, mesmo que seja 
 
 Nesse primeiro exemplo iremos adicionar o Vue a um projeto existente, para isso iremos utilizar o CDN (Content Delivery Network) do Vue.
 
-No nosso html adicionamos o script onde está hospedado esse script através do CDN.
+No nosso html adicionamos o script Vue que está hospedado em um CDN.
 
 ```html
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
@@ -75,3 +75,43 @@ Ao adicionar o Vue através do CDN, o Vue é exposto como propriedades no objeto
 Ao alterar o valor da propriedade `produto` no nosso componente Vue, o valor exibido no nosso template também é alterado, isso acontece pois o Vue é reativo, ou seja, ele monitora as dependências do nosso componente e atualiza o template sempre que uma dependência é alterada.
 
 No nosso exemplo a dependência é a propriedade `produto`, então sempre que essa propriedade é alterada o template é atualizado.
+
+Abaixo outros exemplos de como podem ser criadas instâncias do Vue:
+
+```javascript
+// 01 (recomendado para Vue 3)
+Vue.createApp({
+  // Dados
+  data() {
+    return {
+      produto: "Camiseta",
+    };
+  },
+});
+
+// 02 (usado no Vue 2)
+new Vue({
+  el: "#app",
+  data: {
+    produto: "Camiseta",
+  },
+});
+
+// 03 (registra um componente globalmente)
+Vue.component("produto", {
+  data() {
+    return {
+      produto: "Camiseta",
+    };
+  },
+});
+
+// 04 (Este método cria uma "subclasse" do construtor de Vue base)
+Vue.extend({
+  data() {
+    return {
+      produto: "Camiseta",
+    };
+  },
+});
+```

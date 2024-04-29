@@ -28,7 +28,3 @@ Softwares
 - [Node.js](https://nodejs.org/)
 - [NPM](https://www.npmjs.com/)
 - [Git](https://git-scm.com/)
-
-Extensões
-
-- [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
