@@ -138,3 +138,5 @@ Neste exemplo, utilizamos os hooks `onBeforeMount`, `onMounted` e `onBeforeUnmou
 Resultado:
 
 ![hooks](./public/hooks-example.gif)
+
+![diagrama](./public/hooks-diagram.png)

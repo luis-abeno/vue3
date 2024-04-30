@@ -150,3 +150,5 @@ onMounted(() => storeProduct.getById(Number(route.params.id)))
 Perceba que não precisamos mais das props, pois agora estamos utilizando a store para acessar o estado da aplicação de forma global.
 
 Este é um exemplo simples de como utilizar o Pinia para gerenciar o estado de uma aplicação Vue.js. Para mais informações sobre o Pinia, consulte a [documentação oficial](https://pinia.esm.dev/).
+
+![Exemplo](./assets/exemplo.png)
