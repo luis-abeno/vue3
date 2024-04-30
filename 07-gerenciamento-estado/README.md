@@ -151,4 +151,4 @@ Perceba que não precisamos mais das props, pois agora estamos utilizando a stor
 
 Este é um exemplo simples de como utilizar o Pinia para gerenciar o estado de uma aplicação Vue.js. Para mais informações sobre o Pinia, consulte a [documentação oficial](https://pinia.esm.dev/).
 
-![Exemplo](./assets/exemplo.gif)
+![Exemplo](./public/exemplo.gif)
