@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="container">
+    <h1 class="text-3xl font-bold">Products</h1>
     <ProductsList />
   </div>
 </template>

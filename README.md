@@ -16,7 +16,7 @@ Por exemplo, o projeto `01-intro` contém um exemplo de como criar um projeto Vu
 Conhecimentos básicos
 
 - HTML
-- CSS
+- CSS/Pré-processadores CSS
 - JavaScript
 - Pack Manager (NPM ou Yarn)
 - Git

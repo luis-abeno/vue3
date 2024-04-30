@@ -11,6 +11,7 @@
 - [Parâmetros](#parâmetros)
 - [Redirecionamento](#redirecionamento)
 - [Criando rotas](#criando-rotas)
+- [Estilos e refatoração](#estilos-e-refatoração)
 
 ## Introdução
 
@@ -132,7 +133,7 @@ Para nossa aplicação, vamos criar duas rotas: uma para a página inicial e out
 
 1. Crie um novo arquivo chamado `HomeView.vue` em `src/views`
 2. Crie um novo arquivo chamado `ProductsView.vue` em `src/views`
-3. Renomeie o arquivo `src/views/ProductListView` para `ProductsList.vue` e mova para a pasta `src/componentes`
+3. Renomeie o arquivo `src/views/ProductListView` para `ProductsList.vue` e mova para a pasta `src/components`
 4. Adicione as rotas ao arquivo `router/index.ts`
 
 ```javascript
@@ -159,6 +160,8 @@ export default router
 ```
 
 Perceba que estamos importando os componentes `HomeView` e `ProductsView` e adicionando-os às rotas.
+
+Outro ponto importante é que estamos utilizando a função `import` para carregar o componente `ProductsView` de forma assíncrona, também conhecido como lazy load, isso é útil para melhorar o desempenho da aplicação e carregar o recurso apenas quando necessário.
 
 5. Modifique o arquivo `App.vue` para adicionar os links de navegação
 
@@ -270,3 +273,238 @@ Resultado:
 Agora, quando você clicar em um produto, você será redirecionado para a página de detalhes do produto correspondente.
 
 Com isso criamos um sistema básico de roteamento, onde você pode navegar entre diferentes páginas e passar parâmetros para as rotas.
+
+## Estilos e refatoração
+
+Vamos aplicar alguns estilos e refatorar alguns arquivos, apenas para melhorar a aparência da aplicação e deixar mais organizado.
+
+1. Crie um arquivo chamado `AppNavbar.vue` em `src/components` e adicionei o código abaixo:
+
+```vue
+<template>
+  <div class="nav-wrapper">
+    <div class="container">
+      <nav class="nav">
+        <div class="flex gap-2">
+          <ul class="mr-8">
+            <li class="nav__item body-large">
+              <router-link to="/" class="nav__link text-base font-medium">Home</router-link>
+            </li>
+            <li class="nav__item body-large">
+              <router-link to="/products" class="nav__link text-base font-medium"
+                >Produtos</router-link
+              >
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+</template>
+
+<style scoped lang="scss">
+.nav-wrapper {
+  background-color: color-mix(in srgb, var(--background), transparent 40%);
+  width: 100%;
+
+  &.scrolled {
+    background-color: var(--background);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.nav {
+  padding: 0.5rem 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  color: var(--on-background);
+
+  &__theme {
+    display: flex;
+    gap: 1rem;
+
+    .material-symbols-outlined {
+      position: relative;
+      cursor: pointer;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        width: calc(100% + 20px);
+        height: calc(100% + 20px);
+        border-radius: 50%;
+        background: radial-gradient(circle at center, var(--tertiary), transparent);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      &:hover::before {
+        opacity: 0.6;
+      }
+    }
+  }
+
+  ul {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  &__item {
+    list-style: none;
+  }
+
+  &__link {
+    text-decoration: none;
+    color: var(--on-background);
+    position: relative;
+    transition: color 0.3s ease;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: var(--tertiary);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    &:hover::after {
+      transform: scaleX(1);
+    }
+  }
+}
+</style>
+```
+
+Apenas criamos um navbar e adicionamos alguns estilos. Nesse treinamento não iremos abordar a fundo o tailwindcss, mas você pode consultar a [documentação oficial](https://tailwindcss.com/docs) para mais informações e também pré-processadores como o SASS.
+
+2. Modifique o arquivo `App.vue` para adicionar o componente `AppNavbar`
+
+```vue
+<template>
+  <div>
+    <AppNavbar />
+    <router-view />
+  </div>
+</template>
+
+<script setup lang="ts">
+import AppNavbar from '@/components/AppNavbar.vue'
+</script>
+```
+
+Perceba que estamos utilizando o componente `router-view` para renderizar o conteúdo da rota atual.
+
+O router-view é um componente especial fornecido pelo Vue Router que renderiza o componente correspondente à rota atual, pode ser utilizado para carregar rotas filhas.
+
+Exemplo:
+
+```ts
+const routes = [
+  {
+    path: '/',
+    component: HomeView
+  },
+  {
+    path: '/products',
+    component: () => import('@/views/ProductsView.vue')
+  },
+  {
+    path: '/products/:id',
+    component: () => import('@/views/ProductDetailView.vue')
+  },
+  {
+    path: '/protected',
+    component: () => import('@/views/ProtectedView.vue'),
+    children: [
+      {
+        path: 'profile',
+        component: () => import('@/views/ProfileView.vue')
+      },
+      {
+        path: 'settings',
+        component: () => import('@/views/SettingsView.vue')
+      }
+    ]
+  }
+]
+```
+
+Nesse exemplo, a rota `/protected` renderiza o componente `ProtectedView.vue` e as rotas filhas `profile` e `settings`. O componente da rota pai serve como um layout para as rotas filhas.
+
+3. Modifique o arquivo `src/assets/main.css` para adicionar estilos globais
+
+```css
+@import './base.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+h1 {
+  text-align: center;
+  margin-top: 1rem;
+}
+```
+
+4. Modifique o arquivo `src/views/ProductDetailView.vue` da seguinte forma:
+
+```vue
+<template>
+  <div>
+    <ProductDetail :id="productId" />
+  </div>
+</template>
+
+<script setup lang="ts">
+import ProductDetail from '@/components/ProductDetail.vue'
+
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+
+const productId = Number(route.params.id)
+</script>
+```
+
+5. E por fim o arquivo `src/views/ProductsView.vue`:
+
+```vue
+<template>
+  <div class="container flex justify-center flex-col items-center">
+    <button @click="$router.back()" class="underline">Voltar</button>
+
+    <h2 class="mt-4 text-3xl">{{ product.name }}</h2>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const props = defineProps<{
+  id: number
+}>()
+
+const product = ref({
+  id: 1,
+  name: 'Camiseta'
+})
+
+if (props.id === 2) {
+  product.value = { id: 2, name: 'Calça' }
+} else if (props.id === 3) {
+  product.value = { id: 3, name: 'Par de Luvas' }
+}
+</script>
+```
+
+Resultado final:
+
+![roteamento-03](./public/roteamento-03.gif)

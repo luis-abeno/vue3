@@ -1,8 +1,7 @@
 <template>
-  <div>
-    <h1>Products</h1>
+  <div class="flex justify-center mt-4">
     <ul>
-      <li v-for="product in products" :key="product.id">
+      <li v-for="product in products" :key="product.id" class="underline">
         <router-link :to="`/products/${product.id}`">{{ product.name }}</router-link>
       </li>
     </ul>
