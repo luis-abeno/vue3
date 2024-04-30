@@ -383,7 +383,7 @@ Vamos aplicar alguns estilos e refatorar alguns arquivos, apenas para melhorar a
 </style>
 ```
 
-Apenas criamos um navbar e adicionamos alguns estilos. Nesse treinamento não iremos abordar a fundo o tailwindcss, mas você pode consultar a [documentação oficial](https://tailwindcss.com/docs) para mais informações e também pré-processadores como o SASS.
+Apenas criamos um navbar e adicionamos alguns estilos. Nesse treinamento não iremos abordar pré-processadores de CSS. Se você deseja aprender mais sobre sass, consulte a [documentação oficial](https://sass-lang.com/documentation).
 
 2. Modifique o arquivo `App.vue` para adicionar o componente `AppNavbar`
 
@@ -454,6 +454,8 @@ h1 {
 }
 ```
 
+Nesse treinamento não iremos abordar a fundo o tailwindcss, mas você pode consultar a [documentação oficial](https://tailwindcss.com/docs) para mais informações.
+
 4. Modifique o arquivo `src/views/ProductDetailView.vue` da seguinte forma:
 
 ```vue
@@ -504,6 +506,10 @@ if (props.id === 2) {
 }
 </script>
 ```
+
+O componente ProductsView é responsável por receber o produto selecionado através do id e exibir detalhes do produto.
+
+Em uma aplicação real ele faria uma chamada a uma API para buscar os dados do produto, para manter a simplicidade do exemplo, estamos apenas simulando o comportamento.
 
 Resultado final:
 
