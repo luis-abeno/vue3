@@ -31,7 +31,7 @@ npm install vue-router@next
 
 ## Configuração
 
-Para configurar o Vue Router, você precisa importá-lo em seu arquivo de entrada principal (geralmente `main.ts`).
+Para configurar o Vue Router, você precisa importá-lo em seu arquivo de entrada (geralmente `main.ts`).
 
 ```javascript
 import './assets/main.css'
@@ -40,7 +40,7 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
 import App from './App.vue'
-import router from './router'
+import router from './router' // <== Importe o arquivo de configuração do Vue Router
 
 const app = createApp(App)
 
@@ -65,16 +65,16 @@ const router = createRouter({
 export default router
 ```
 
-Aqui, estamos criando uma instância do Vue Router e exportando-a para que possamos usá-la em nosso arquivo de entrada principal.
+Aqui, estamos criando uma instância do Vue Router e exportando-a para que possamos usá-la em nosso arquivo de entrada.
 
-Nesse exemplo estamos criando um sistema de rotas vazio. Vamos adicionar rotas posteriormente.
+Nesse exemplo estamos criando um sistema de rotas vazio. Adicionaremos rotas posteriormente.
 
 Perceba o uso de `import.meta.env.BASE_URL`. Isso é necessário para que o Vue Router funcione corretamente, pois ele usa a URL base da aplicação.
 
 Pontos importantes:
 
-- `createWebHistory` - Cria uma instância de histórico baseada na API de histórico do navegador.
-- `import.meta.env` - O Vite fornece um objeto `import.meta.env` que contém variáveis de ambiente e pode ser usado para acessar variáveis de ambiente em tempo de compilação.
+- `createWebHistory` - Cria uma instância de histórico baseada na API de histórico do navegador, poderia ser utilizado também `createWebHashHistory` por exemplo, para criar uma instância de histórico baseada em hash, útil para aplicações que não podem ser configuradas para redirecionar URLs para o servidor.
+- `import.meta.env` - O Vite fornece um objeto `import.meta.env` que contém variáveis de ambiente e pode ser usado para acessa-las em tempo de compilação.
 
 ## Navegação
 
@@ -86,7 +86,7 @@ O componente `router-link` é usado para navegar entre páginas em um aplicativo
 <router-link to="/about">About</router-link>
 ```
 
-Nesse exemplo acima, estamos criando um link para a rota `/about`.
+Nesse exemplo acima, estamos criando um link para a rota `/about` e diferente do componente `a`, o `router-link` não recarrega a página, ele apenas atualiza a URL e o componente `router-view` (veremos mais a frente), renderiza o componente correspondente à rota.
 
 ### Programática
 
@@ -97,6 +97,18 @@ this.$router.push('/about')
 ```
 
 O objeto `$router` é injetado em todos os componentes Vue e pode ser usado para navegar entre rotas.
+
+Outra forma seria importar o "useRouter" do vue-router e utilizar o mesmo para navegar entre rotas.
+
+```javascript
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+router.push('/about')
+```
+
+Ele é útil quando você precisa navegar entre rotas em resposta a eventos ou ações do usuário.
 
 ## Parâmetros
 
@@ -111,6 +123,25 @@ Você pode passar parâmetros para uma rota usando a propriedade `props`.
 ```
 
 No exemplo acima, estamos passando um parâmetro chamado `id` para a rota `/user`.
+
+Então poderíamos acessar o parâmetro `id` no componente, caso a url seja por exemplo `/user/1`, o valor de `id` seria `1`.
+
+```vue
+<template>
+  <div>
+    <!-- User 1 -->
+    <h1>User {{ $route.params.id }}</h1>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+
+console.log(route.params.id) // 1
+</script>
+```
 
 ## Redirecionamento
 
@@ -161,7 +192,7 @@ export default router
 
 Perceba que estamos importando os componentes `HomeView` e `ProductsView` e adicionando-os às rotas.
 
-Outro ponto importante é que estamos utilizando a função `import` para carregar o componente `ProductsView` de forma assíncrona, também conhecido como lazy load, isso é útil para melhorar o desempenho da aplicação e carregar o recurso apenas quando necessário.
+Outro ponto importante é que estamos utilizando a função `import` para carregar o componente `ProductsView` de forma assíncrona, também conhecido como "lazy load", isso é útil para melhorar o desempenho da aplicação e carregar o recurso apenas quando necessário.
 
 5. Modifique o arquivo `App.vue` para adicionar os links de navegação
 

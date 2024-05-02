@@ -10,7 +10,7 @@
 
 O gerenciamento de estado é uma técnica que permite que os componentes de um sistema possam compartilhar informações entre si. Em aplicações web, o gerenciamento de estado é uma técnica muito utilizada para manter o estado da aplicação sincronizado entre os componentes.
 
-Neste conteúdo, vamos falar sobre o Pinia, uma biblioteca de gerenciamento de estado para Vue.js.
+Neste conteúdo, vamos falar sobre o **Pinia**, uma biblioteca de gerenciamento de estado para Vue.js.
 
 ## Pinia
 

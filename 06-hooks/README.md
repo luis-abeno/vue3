@@ -31,7 +31,7 @@ O hook `beforeCreate` é executado antes do componente ser criado. Neste momento
 
 ## created
 
-O hook `created` é executado após o componente ser criado. Neste momento, o componente já foi instanciado e as propriedades já foram inicializadas.
+O hook `created` é executado após o componente ser criado. Neste momento o mesmo já foi instanciado e as propriedades já foram inicializadas, porém ainda não foi montado no DOM.
 
 ```javascript
   created() {
@@ -39,9 +39,23 @@ O hook `created` é executado após o componente ser criado. Neste momento, o co
   }
 ```
 
+Em muitos casos é comumente utilizado para se obter algum dado ou consumir um endpoint de uma API, por exemplo.
+
+```javascript
+  created() {
+    fetch('https://api.example.com/data')
+      .then(response => response.json())
+      .then(data => {
+        this.data = data
+      })
+  }
+```
+
+A principal diferença entre ele o `beforeCreate` é que o `created` é executado após o componente ser criado, ou seja, as propriedades já foram inicializadas e o componente já foi instanciado.
+
 ## beforeMount
 
-O hook `beforeMount` é executado antes do componente ser montado no DOM. Neste momento, o componente já foi criado e as propriedades já foram inicializadas.
+O hook `beforeMount` é executado antes da renderização inicial no DOM. Neste momento, o componente já foi criado e as propriedades já foram inicializadas.
 
 ```javascript
   beforeMount() {
@@ -79,6 +93,18 @@ O hook `updated` é executado após o componente ser atualizado. Neste momento, 
   }
 ```
 
+Nós podemos acessar o DOM antigo antes de qualquer atualização no hook `beforeUpdate` e mostrar as alterações finais no hook `updated`.
+
+```javascript
+  beforeUpdate() {
+    console.log('beforeUpdate')
+  }
+
+  updated() {
+    console.log('updated')
+  }
+```
+
 ## beforeUmount
 
 O hook `beforeUmount` é executado antes do componente ser desmontado do DOM. Neste momento, o componente ainda está montado e as propriedades ainda estão inicializadas.
@@ -93,9 +119,18 @@ O hook `beforeUmount` é executado antes do componente ser desmontado do DOM. Ne
 
 O hook `unmounted` é executado após o componente ser desmontado do DOM. Neste momento, o componente já foi desmontado e as propriedades já foram destruídas.
 
+Muito útil para limpar recursos, como por exemplo, remover event listeners, cancelar requisições, timers, etc.
+
 ```javascript
   unmounted() {
-    console.log('unmounted')
+    // Limpando um timer
+    clearInterval(this.timer)
+
+    // Removendo um event listener
+    window.removeEventListener('resize', this.handleResize)
+
+    // Cancelando uma requisição
+    this.controller.abort()
   }
 ```
 

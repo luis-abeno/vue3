@@ -18,13 +18,15 @@ A ideia de um projeto real é mostrar como podemos utilizar o Vue 3 em um projet
 
 ## O que vamos construir?
 
-Vamos construir um projeto de uma loja virtual, onde teremos uma listagem de produtos, um carrinho de compras e um formulário de contato.
+Vamos construir um projeto de uma loja virtual, onde teremos uma listagem de produtos, uma página de detalhes e uma página principal.
 
 Esse projeto será dividido em várias partes, onde cada parte será um exemplo de um tópico abordado no curso.
 
 ## Criando um novo projeto Vue 3
 
 Para criar um novo projeto Vue 3, podemos utilizar o comando `create-vue` do NPM.
+
+Se trata de um CLI (Command Line Interface), que é usado para iniciar um projeto Vue 3 com Vite. É a forma recomendada atualmente, anteriormente até a versão 2 se usava o Vue CLI
 
 [create-vue](https://github.com/vuejs/create-vue)
 
@@ -83,7 +85,7 @@ A estrutura do projeto inicial é a seguinte:
 ```
 
 - `node_modules`: Contém todas as dependências do projeto.
-- `public`: Contém os arquivos públicos do projeto e que não serão processados pelo Vite, arquivos como por exemplo ícones de mídias sociais, favicon, etc.
+- `public`: Contém os arquivos públicos do projeto e que não serão processados pelo Vite (webpack ou rollout), arquivos como por exemplo ícones de mídias sociais, favicon, etc.
 - `src`: Contém os arquivos do projeto.
   - `assets`: Contém os arquivos de assets do projeto, como imagens, fontes, etc.
   - `components`: Contém os componentes reútilizaveis do projeto.

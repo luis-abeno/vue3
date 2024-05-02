@@ -8,7 +8,7 @@
 
 ## Introdução
 
-Neste projeto vamos criar um projeto Vue 3 do zero, iremos ver como instalar o Vue CLI e também as diferentes formas de se trabalhar com o Vue.
+Neste projeto vamos criar um projeto Vue 3 do zero, veremos diferentes formas de se instanciar o Vue e como renderizar algo na tela.
 
 ## O que é Vue?
 

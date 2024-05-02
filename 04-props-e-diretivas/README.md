@@ -58,16 +58,31 @@ const props = defineProps({
 </script>
 ```
 
+No nosso componente `ProductDetail`, registramos a propriedade `name` utilizando a função `defineProps` e definimos o tipo da propriedade como `String` como obrigatório, caso necessário você também pode definir a propriedade como não obrigatória utilizando o `default`:
+
+```typescript
+const props = defineProps({
+  name: {
+    type: String,
+    required: true,
+    default: 'Meu Produto'
+  }
+})
+```
+
 O resultado será esse:
+
 ![Props](./public/Props.jpg)
 
 Perceba que cada instância do componente `ProductDetail` recebeu um valor diferente para a propriedade `name`, dessa forma conseguimos personalizar cada componente de forma independente.
 
 ### Prop Drilling
 
-Mas atenção no uso de props, caso árvore de componentes seja muito grande, a passagem de props pode se tornar complexa e difícil de manter, isso também é chamado de "Prop Drilling".
+Atenção no uso de props, caso árvore de componentes seja muito grande, a passagem de props pode se tornar complexa e difícil de manter, isso também é chamado de "Prop Drilling".
 
 Exemplo de prop drilling:
+
+- componentePai.vue
 
 ```vue
 <!-- Componente Pai -->
@@ -78,6 +93,8 @@ Exemplo de prop drilling:
   </div>
 </template>
 ```
+
+- componenteFilho01.vue
 
 ```vue
 <template>
@@ -94,6 +111,8 @@ const props = defineProps({
 </script>
 ```
 
+- componenteFilho02.vue
+
 ```vue
 <template>
   <div>
@@ -108,6 +127,8 @@ const props = defineProps({
 })
 </script>
 ```
+
+- componenteFilho03.vue
 
 ```vue
 <template>
@@ -130,7 +151,7 @@ Para evitar esse problema, podemos utilizar outra biblioteca para gerenciamento 
 
 ## Diretivas
 
-Diretivas são atributos especiais que são aplicados a elementos HTML. Elas são prefixadas com `v-` para indicar que são diretivas especiais fornecidas pelo Vue.
+Diretivas são **atributos** especiais que são aplicados a elementos HTML. Elas são prefixadas com `v-` para indicar que são diretivas especiais fornecidas pelo Vue. Também podemos utilizar a sintaxe abreviada `:` para `v-bind`, `@` para `v-on` e `#` para `v-slot`.
 
 ### v-if
 
@@ -144,6 +165,12 @@ A diretiva `v-if` é usada para renderizar um bloco de código com base em uma e
     <ProductDetail name="Par de Luvas" />
   </div>
 </template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const isProductVisible = ref(false)
+</script>
 ```
 
 Nesse exemplo, o componente `ProductDetail` com o nome "Camiseta" só será renderizado se a propriedade `isProductVisible` for verdadeira.

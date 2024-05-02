@@ -96,24 +96,24 @@ import ProductDetail from '@/components/ProductDetail.vue'
 </script>
 ```
 
-Nesse exemplo, criamos uma View chamada `ProductList` que exibe três instâncias do componente `ProductDetail`.
+Nesse exemplo, criamos uma View chamada `ProductListView` que exibe três instâncias do componente `ProductDetail`.
 
-Agora vamos substituir no nosso App.vue o componente `ProductDetail` pelo `ProductList`:
+Agora vamos substituir no nosso App.vue o componente `ProductDetail` pelo `ProductListView`:
 
 ```vue
 <script setup lang="ts">
-import ProductList from '@/views/ProductListView.vue'
+import ProductListView from '@/views/ProductListView.vue'
 </script>
 
 <template>
   <div>
-    <ProductList />
+    <ProductListView />
   </div>
 </template>
 ```
 
 O resultado será esse:
 
-![ProductList](./public/ProductList.jpg)
+![ProductListView](./public/ProductListView.jpg)
 
 Com isso, finalizamos a criação do nosso primeiro SFC, criamos um componente reutilizável (`ProductDetail`) e uma View (`ProductListView`) que utiliza esse componente.
