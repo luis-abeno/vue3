@@ -149,6 +149,8 @@ Nesse exemplo, o componente `Componente04` precisa da propriedade `prop`, mas pa
 
 Para evitar esse problema, podemos utilizar outra biblioteca para gerenciamento de estado, na versão 2 do Vue era muito utilizado o Vuex, mas na versão 3 do Vue, a própria equipe do Vue recomenda o uso do [Pinia](https://pinia.esm.dev/) que é o seu sucessor. Esse tópico será abordado mais para frente.
 
+![Prop Drilling](./public/prodrilling.png)
+
 ## Diretivas
 
 Diretivas são **atributos** especiais que são aplicados a elementos HTML. Elas são prefixadas com `v-` para indicar que são diretivas especiais fornecidas pelo Vue. Também podemos utilizar a sintaxe abreviada `:` para `v-bind`, `@` para `v-on` e `#` para `v-slot`.

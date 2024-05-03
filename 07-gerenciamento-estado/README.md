@@ -3,6 +3,7 @@
 ## Tabela de conteúdo
 
 - [Introdução](#introdução)
+- [Provide/Inject](#provideinject)
 - [Pinia](#pinia)
 - [Store](#store)
 
@@ -11,6 +12,64 @@
 O gerenciamento de estado é uma técnica que permite que os componentes de um sistema possam compartilhar informações entre si. Em aplicações web, o gerenciamento de estado é uma técnica muito utilizada para manter o estado da aplicação sincronizado entre os componentes.
 
 Neste conteúdo, vamos falar sobre o **Pinia**, uma biblioteca de gerenciamento de estado para Vue.js.
+
+## Provide/Inject
+
+Como vimos anteriormente, o Vue.js possui um sistema de propriedades que permite que os componentes se comuniquem entre si. Vimos também uma árvore de componentes, onde um componente pai pode passar informações para um componente filho através de props.
+
+![PropDrilling](./public/prodrilling.png)
+
+No entanto, em alguns casos, pode ser necessário passar informações para um componente que não é um componente filho direto. Para isso, o Vue.js possui um sistema de Provide/Inject que permite que um componente forneça informações para todos os seus descendentes, independentemente da profundidade do componente na árvore de componentes.
+
+![ProvideInject](./public/provide-inject.png)
+
+Para utilizar o Provide/Inject, basta utilizar as propriedades `provide` e `inject` em um componente.
+
+ComponentePai.vue
+
+```vue
+<template>
+  <div>
+    <p>Nome: {{ name }}</p>
+    <p>Idade: {{ age }}</p>
+    <ChildComponent />
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import ChildComponent from './ChildComponent.vue'
+
+const name = ref('Fulano')
+
+provide('name', name)
+provide('age', 30)
+</script>
+```
+
+ComponenteNeto.vue
+
+```vue
+<template>
+  <div>
+    <p>Nome: {{ name }}</p>
+    <p>Idade: {{ age }}</p>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { inject } from 'vue'
+
+const name = inject('name')
+const age = inject('age')
+</script>
+```
+
+Neste exemplo, o componente `ComponentePai` fornece as informações `name` e `age` para todos os seus descendentes, incluindo o componente `ComponenteNeto`.
+
+O Provide/Inject é uma técnica muito útil para passar informações para componentes que não são descendentes diretos. No entanto, o Provide/Inject não é recomendado para passar informações que mudam com frequência, pois isso pode tornar o código difícil de entender e manter.
+
+Porém, o provide/inject servem apenas para passar informações entre componentes, mas não para gerenciar o estado da aplicação, eles não proveem por exemplo recursos como actions, mutations e getters, que são comuns em bibliotecas de gerenciamento de estado como o Pinia.
 
 ## Pinia
 
