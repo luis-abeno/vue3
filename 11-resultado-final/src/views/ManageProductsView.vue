@@ -8,11 +8,7 @@
     </div>
 
     <div class="flex justify-center flex-col items-center mt-4">
-      <ul v-if="storeProduct.products.length > 0">
-        <li v-for="product in storeProduct.products" :key="product.id" class="underline">
-          <router-link :to="`/products/${product.id}`">{{ product.name }}</router-link>
-        </li>
-      </ul>
+      <ProductList v-if="storeProduct.products.length > 0" type="list" />
 
       <p v-else>Nenhum produto cadastrado</p>
     </div>
@@ -22,6 +18,7 @@
 <script setup lang="ts">
 import { useProductStore } from '@/stores/product.store'
 import { ref } from 'vue'
+import ProductList from '@/components/ProductList.vue'
 
 const storeProduct = useProductStore()
 const product = ref('')
